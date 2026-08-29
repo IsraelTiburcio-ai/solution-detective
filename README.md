@@ -22,14 +22,14 @@ La fuente académica principal es el material **Gimnasio 2. Modelos de Programac
 ## Mecánica
 
 1. Se abre un expediente.
-2. En cada ronda se presentan cuatro casos, uno de cada tipo de solución.
+2. En cada ronda se presentan ocho preguntas, dos de cada tipo de solución.
 3. El jugador observa la mini gráfica, lee el modelo y sella una respuesta.
 4. Después de cada sello aparece una retroalimentación breve.
 5. El cierre muestra el puntaje, el tiempo y el repaso de los cuatro tipos.
 
 ## Tiempo estimado
 
-Una partida dura aproximadamente **50 a 90 segundos** y tiene **4 casos**. El orden de los casos y algunas variantes cambian al investigar otra vez.
+Una partida dura aproximadamente **80 a 120 segundos** y tiene **8 preguntas**. El orden de los casos y algunas variantes cambian al investigar otra vez.
 
 ## Despliegue
 

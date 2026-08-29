@@ -233,4 +233,46 @@
       }
     }
   ];
+
+  const multipleBase = window.SD_CASES.find((item) => item.id === "e3-multiple");
+  const infeasibleBase = window.SD_CASES.find((item) => item.id === "e5-no-factible");
+
+  window.SD_CASES.push(
+    Object.assign({}, multipleBase, {
+      id: "e3-multiple-b",
+      code: "EXP G2-46-03B",
+      title: "La frontera repetida",
+      graph: Object.assign({}, multipleBase.graph, {
+        view: { x: [-1, 6], y: [-1, 6] },
+        xTicks: [1, 2, 3, 4, 5],
+        yTicks: [1, 2, 3, 4, 5],
+        lines: [
+          { points: [[-1, 23 / 7], [6, 9 / 7]], label: "R1", labelAt: [0.05, 3.4] },
+          { points: [[9 / 7, 6], [23 / 7, -1]], label: "R2", labelAt: [1.45, 5.65] }
+        ],
+        isoLines: [
+          { points: [[-1, 23 / 7], [6, 9 / 7]], label: "z = 42", labelAt: [0.7, 3.72], overlap: true }
+        ]
+      })
+    }),
+    Object.assign({}, infeasibleBase, {
+      id: "e5-no-factible-b",
+      code: "EXP G2-47-05B",
+      title: "El cruce imposible",
+      graph: Object.assign({}, infeasibleBase.graph, {
+        view: { x: [-1, 9], y: [-1, 9] },
+        xTicks: [2, 4, 6, 8],
+        yTicks: [2, 4, 6, 8],
+        regions: [
+          { points: [[0, 5], [5, 0], [9, 0], [9, 9], [0, 9]] },
+          { points: [[0, 0], [2, 0], [0, 2]] }
+        ],
+        lines: [
+          { points: [[-1, 6], [6, -1]], label: "R1", labelAt: [0.2, 5.5] },
+          { points: [[-1, 3], [3, -1]], label: "R2", labelAt: [0.2, 2.65] }
+        ],
+        watermark: { x: 4.1, y: 4.65, text: "∅", size: 42 }
+      })
+    })
+  );
 }());

@@ -3,6 +3,8 @@
 
   const types = window.SD_TYPES;
   const cases = window.SD_CASES;
+  const QUESTIONS_PER_ROUND = 8;
+  const QUESTIONS_PER_TYPE = QUESTIONS_PER_ROUND / types.length;
   const $ = (selector) => document.querySelector(selector);
 
   const screens = {
@@ -193,10 +195,12 @@
   }
 
   function makeOrder() {
-    return shuffle(types.map((type) => {
+    const selected = [];
+    types.forEach((type) => {
       const choices = cases.filter((item) => item.type === type.key);
-      return choices[Math.floor(Math.random() * choices.length)];
-    }));
+      selected.push(...shuffle(choices).slice(0, QUESTIONS_PER_TYPE));
+    });
+    return shuffle(selected);
   }
 
   function showScreen(screenName) {
@@ -260,7 +264,7 @@
   function renderCase() {
     const current = state.order[state.index];
     state.locked = false;
-    elements.caseTag.textContent = `CASO ${state.index + 1}/4`;
+    elements.caseTag.textContent = `CASO ${state.index + 1}/${state.order.length}`;
     elements.caseCode.textContent = current.code;
     elements.evidenceCode.textContent = current.source;
     elements.caseTitle.textContent = current.title;
@@ -276,8 +280,8 @@
     elements.verdictStamp.className = "verdict-stamp";
     elements.verdictStamp.textContent = "";
     elements.verdictText.textContent = "";
-    elements.nextButton.textContent = state.index === 3 ? "CERRAR EXPEDIENTE" : "SIGUIENTE CASO";
-    elements.live.textContent = `Caso ${state.index + 1} de 4. ${current.title}.`;
+    elements.nextButton.textContent = state.index === state.order.length - 1 ? "CERRAR EXPEDIENTE" : "SIGUIENTE CASO";
+    elements.live.textContent = `Caso ${state.index + 1} de ${state.order.length}. ${current.title}.`;
     showScreen("case");
   }
 
@@ -343,13 +347,14 @@
   }
 
   function rankForScore(score) {
-    if (score === 4) {
+    const total = state.order.length || QUESTIONS_PER_ROUND;
+    if (score === total) {
       return "DETECTIVE ESTELAR";
     }
-    if (score === 3) {
+    if (score >= Math.ceil(total * 0.75)) {
       return "DETECTIVE EXPERTO";
     }
-    if (score === 2) {
+    if (score >= Math.ceil(total * 0.5)) {
       return "DETECTIVE EN PRÁCTICAS";
     }
     return "ARCHIVO POR REVISAR";
@@ -357,7 +362,7 @@
 
   function renderReport() {
     elements.reportRank.textContent = rankForScore(state.score);
-    elements.reportScore.textContent = `${state.score} / 4 sellos correctos`;
+    elements.reportScore.textContent = `${state.score} / ${state.order.length} sellos correctos`;
     elements.reportTime.textContent = `Tiempo: ${formatTime(state.elapsed)} de investigación`;
     elements.reportList.innerHTML = state.answers.map((answer) => {
       const expected = typeByKey(answer.caseData.type);
@@ -373,7 +378,7 @@
         </li>
       `;
     }).join("");
-    elements.live.textContent = `Expediente cerrado. ${state.score} de 4 respuestas correctas. ${rankForScore(state.score)}.`;
+    elements.live.textContent = `Expediente cerrado. ${state.score} de ${state.order.length} respuestas correctas. ${rankForScore(state.score)}.`;
   }
 
   function startGame() {
