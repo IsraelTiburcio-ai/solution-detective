@@ -35,6 +35,9 @@ Una partida dura aproximadamente **50 a 90 segundos** y tiene **4 casos**. El or
 
 El sitio es estático y se despliega automáticamente en GitHub Pages mediante `.github/workflows/pages.yml` cada vez que se actualiza la rama `main`.
 
+- Repositorio: https://github.com/IsraelTiburcio-ai/solution-detective
+- Demo pública: https://israeltiburcio-ai.github.io/solution-detective/
+
 Para publicarlo en un repositorio nuevo:
 
 ```bash
