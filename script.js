@@ -264,7 +264,7 @@
   function renderCase() {
     const current = state.order[state.index];
     state.locked = false;
-    elements.caseTag.textContent = `CASO ${state.index + 1}/${state.order.length}`;
+    elements.caseTag.textContent = `PREGUNTA ${state.index + 1} DE ${state.order.length}`;
     elements.caseCode.textContent = current.code;
     elements.evidenceCode.textContent = current.source;
     elements.caseTitle.textContent = current.title;
@@ -280,8 +280,8 @@
     elements.verdictStamp.className = "verdict-stamp";
     elements.verdictStamp.textContent = "";
     elements.verdictText.textContent = "";
-    elements.nextButton.textContent = state.index === state.order.length - 1 ? "CERRAR EXPEDIENTE" : "SIGUIENTE CASO";
-    elements.live.textContent = `Caso ${state.index + 1} de ${state.order.length}. ${current.title}.`;
+    elements.nextButton.textContent = state.index === state.order.length - 1 ? "CERRAR EXPEDIENTE" : "SIGUIENTE PREGUNTA";
+    elements.live.textContent = `Pregunta ${state.index + 1} de ${state.order.length}. ${current.title}.`;
     showScreen("case");
   }
 
