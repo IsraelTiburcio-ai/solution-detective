@@ -4,7 +4,6 @@
   const types = window.SD_TYPES;
   const cases = window.SD_CASES;
   const QUESTIONS_PER_ROUND = 8;
-  const QUESTIONS_PER_TYPE = QUESTIONS_PER_ROUND / types.length;
   const $ = (selector) => document.querySelector(selector);
 
   const screens = {
@@ -195,12 +194,13 @@
   }
 
   function makeOrder() {
-    const selected = [];
-    types.forEach((type) => {
-      const choices = cases.filter((item) => item.type === type.key);
-      selected.push(...shuffle(choices).slice(0, QUESTIONS_PER_TYPE));
+    const onePerType = types.map((type) => {
+      const choices = shuffle(cases.filter((item) => item.type === type.key));
+      return choices[0];
     });
-    return shuffle(selected);
+    const reserved = new Set(onePerType);
+    const remaining = shuffle(cases.filter((item) => !reserved.has(item)));
+    return shuffle([...onePerType, ...remaining.slice(0, QUESTIONS_PER_ROUND - onePerType.length)]);
   }
 
   function showScreen(screenName) {

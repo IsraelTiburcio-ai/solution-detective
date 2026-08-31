@@ -234,45 +234,68 @@
     }
   ];
 
-  const multipleBase = window.SD_CASES.find((item) => item.id === "e3-multiple");
-  const infeasibleBase = window.SD_CASES.find((item) => item.id === "e5-no-factible");
-
   window.SD_CASES.push(
-    Object.assign({}, multipleBase, {
-      id: "e3-multiple-b",
-      code: "EXP G2-46-03B",
-      title: "La frontera repetida",
-      graph: Object.assign({}, multipleBase.graph, {
-        view: { x: [-1, 6], y: [-1, 6] },
-        xTicks: [1, 2, 3, 4, 5],
-        yTicks: [1, 2, 3, 4, 5],
+    {
+      id: "p43-second-optima",
+      type: "optima",
+      code: "EXP G2-43-02",
+      source: "Ejercicio 2 · pág. 43",
+      title: "La esquina escondida",
+      model: {
+        objective: "max z = 5x + 9y",
+        constraints: ["4x − 2y ≤ 4", "2x + 4y ≤ 20", "y ≥ 3", "x, y ≥ 0"]
+      },
+      graph: {
+        view: { x: [-0.5, 5], y: [-1, 7] },
+        step: 1,
+        xTicks: [1, 2, 3, 4],
+        yTicks: [1, 2, 3, 4, 5, 6],
+        regions: [{ points: [[0, 3], [0, 5], [14 / 5, 18 / 5], [5 / 2, 3]] }],
         lines: [
-          { points: [[-1, 23 / 7], [6, 9 / 7]], label: "R1", labelAt: [0.05, 3.4] },
-          { points: [[9 / 7, 6], [23 / 7, -1]], label: "R2", labelAt: [1.45, 5.65] }
+          { points: [[-0.5, -3], [4.5, 7]], label: "R1", labelAt: [3.75, 5.55] },
+          { points: [[-0.5, 21 / 4], [5, 5 / 2]], label: "R2", labelAt: [4.2, 2.75] },
+          { points: [[-0.5, 3], [5, 3]], label: "R3", labelAt: [4.25, 3.28] }
         ],
         isoLines: [
-          { points: [[-1, 23 / 7], [6, 9 / 7]], label: "z = 42", labelAt: [0.7, 3.72], overlap: true }
-        ]
-      })
-    }),
-    Object.assign({}, infeasibleBase, {
-      id: "e5-no-factible-b",
-      code: "EXP G2-47-05B",
-      title: "El cruce imposible",
-      graph: Object.assign({}, infeasibleBase.graph, {
-        view: { x: [-1, 9], y: [-1, 9] },
-        xTicks: [2, 4, 6, 8],
-        yTicks: [2, 4, 6, 8],
-        regions: [
-          { points: [[0, 5], [5, 0], [9, 0], [9, 9], [0, 9]] },
-          { points: [[0, 0], [2, 0], [0, 2]] }
+          { points: [[-0.5, 163 / 30], [5, 107 / 45]], label: "z = 46,4", labelAt: [0.8, 5.45] }
         ],
+        points: [{ x: 14 / 5, y: 18 / 5, label: "C (14/5, 18/5)", kind: "star", dx: -1.05, dy: -0.62 }]
+      },
+      feedback: {
+        correct: ["Correcto: una única solución optimiza la F.O.", "z = 232/5 en (14/5, 18/5)."],
+        incorrect: ["Es solución óptima: un único punto optimiza la F.O.", "z = 232/5 en (14/5, 18/5)."]
+      }
+    },
+    {
+      id: "p44-resources-optima",
+      type: "optima",
+      code: "EXP G2-44-01",
+      source: "Ejemplo · pág. 44",
+      title: "La fábrica de tres recursos",
+      model: {
+        objective: "max z = 40x₁ + 30x₂",
+        constraints: ["4x₁ + 5x₂ ≤ 200", "x₂ ≤ 25", "6x₁ + 3x₂ ≤ 210", "x₁, x₂ ≥ 0"]
+      },
+      graph: {
+        view: { x: [-5, 55], y: [-5, 35] },
+        step: 10,
+        xTicks: [10, 20, 30, 40, 50],
+        yTicks: [10, 20, 25, 30],
+        regions: [{ points: [[0, 0], [35, 0], [25, 20], [75 / 4, 25], [0, 25]] }],
         lines: [
-          { points: [[-1, 6], [6, -1]], label: "R1", labelAt: [0.2, 5.5] },
-          { points: [[-1, 3], [3, -1]], label: "R2", labelAt: [0.2, 2.65] }
+          { points: [[5, 36], [55, -4]], label: "R1", labelAt: [48, 1.5] },
+          { points: [[-5, 25], [55, 25]], label: "R2", labelAt: [50, 25.8] },
+          { points: [[17.5, 35], [37.5, -5]], label: "R3", labelAt: [36, -1.8] }
         ],
-        watermark: { x: 4.1, y: 4.65, text: "∅", size: 42 }
-      })
-    })
+        isoLines: [
+          { points: [[5, 140 / 3], [175 / 4, -5]], label: "z = 1600", labelAt: [27, 22.6] }
+        ],
+        points: [{ x: 25, y: 20, label: "C (25, 20)", kind: "star", dx: 1.2, dy: -1 }]
+      },
+      feedback: {
+        correct: ["Correcto: una única solución optimiza la F.O.", "z = 1600 en (25, 20)."],
+        incorrect: ["Es solución óptima: el máximo está en (25, 20).", "z = 1600."]
+      }
+    }
   );
 }());
