@@ -1,5 +1,6 @@
 (function () {
   "use strict";
+  const optilabResults = window.OptiLabResults?.create('solution-detective');
 
   const types = window.SD_TYPES;
   const cases = window.SD_CASES;
@@ -340,6 +341,7 @@
     stopTimer();
     updateTimer();
     state.elapsed = Math.max(1, Math.round(state.elapsed));
+    optilabResults?.complete({reason:'completed',correct:state.score,total:state.order.length,durationMs:state.elapsed*1000});
     renderReport();
     showScreen("report");
     playSound("close");
@@ -382,6 +384,7 @@
   }
 
   function startGame() {
+    optilabResults?.start();
     ensureAudio();
     playSound("open");
     state.order = makeOrder();
